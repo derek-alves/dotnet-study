@@ -50,6 +50,14 @@ namespace catalog_api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "catalog_api", Version = "v1" });
             });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("WeatherForecastCorsPolicy", builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                });
+            });
         }
 
         private object MongoDbSetting()
@@ -70,6 +78,8 @@ namespace catalog_api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 
